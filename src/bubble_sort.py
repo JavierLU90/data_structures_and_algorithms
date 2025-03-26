@@ -13,6 +13,8 @@ def bubble_sort(nums):
     return nums
 
 '''
+BUBBLE SORTS
+
 Bubble sort repeatedly steps through a slice and compares adjacent elements, swapping them if they are out of order. It continues to loop over the slice until the whole list is completely sorted. Here's the pseudocode:
 
 Set swapping to True

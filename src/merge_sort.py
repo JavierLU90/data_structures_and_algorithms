@@ -28,7 +28,8 @@ def merge(first, second):
     return final
 
 '''
-Merge Sort
+MERGE SORT
+
 Merge sort is a recursive sorting algorithm and it's quite a bit faster than bubble sort. It's a divide and conquer algorithm.:
 
 Divide: divide the large problem into smaller problems, and recursively solve the smaller problems
