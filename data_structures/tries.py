@@ -1,5 +1,8 @@
 class Trie:
     def search_level(self, current_level, current_prefix, words):
+        '''This recursive function collects all complete words starting from the current trie level. 
+        It takes the current dictionary level, the accumulated prefix so far, 
+        and the collection of words found.'''
         if self.end_symbol in current_level:
             words.append(current_prefix)
         for letter in sorted(current_level.keys()):
@@ -9,6 +12,7 @@ class Trie:
         return words
 
     def words_with_prefix(self, prefix):
+        '''This finds all words in the trie that begin with a given prefix.'''
         collected_words = []
         current_level = self.root
         for letter in prefix:
@@ -18,6 +22,8 @@ class Trie:
         return self.search_level(current_level, prefix, collected_words)
     
     def exists(self, word):
+        '''It takes a word as input, and should return True if the word exists in the trie, 
+        and False if it doesn't.'''
         current = self.root
         for letter in word:
             if letter not in current:
@@ -26,6 +32,8 @@ class Trie:
         return self.end_symbol in current
 
     def find_matches(self, document):
+        ''' It takes an entire document string as input and returns a set() 
+        of all the words from the trie that occur in the document.'''
         matches = set()
         for i in range(len(document)):
             level = self.root
@@ -38,9 +46,27 @@ class Trie:
                     substring = document[i:j+1]
                     matches.add(substring)
         return matches
-
+    
+    def advanced_find_matches(self, document, variations):
+        ''' It takes an entire document and a dictionary of character variations as input, 
+        and should return a set() of all the words in the trie that exist in the document 
+        as continuous substrings, even if the word had a variation character instead of the original.'''
+        matches = set()
+        for i in range(len(document)):
+            level = self.root
+            for j in range(i, len(document)):
+                ch = document[j]
+                if ch in variations:
+                    ch = variations[ch]
+                if ch not in level:
+                    break
+                level = level[ch]
+                if self.end_symbol in level:
+                    matches.add(document[i : j + 1])
+        return matches
     
     def longest_common_prefix(self):
+        '''It returns the longest common prefix among the words in the trie.'''
         current = self.root
         prefix = ""
         while True:
@@ -56,6 +82,7 @@ class Trie:
         return prefix
 
     def add(self, word):
+        '''It takes a word as input, and should add it to the trie.'''
         current = self.root
         for letter in word:
             if letter not in current:
