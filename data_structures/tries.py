@@ -1,15 +1,41 @@
 class Trie:
+    def search_level(self, current_level, current_prefix, words):
+        if self.end_symbol in current_level:
+            words.append(current_prefix)
+        for letter in sorted(current_level.keys()):
+            if letter != self.end_symbol:
+                extended_prefix = current_prefix + letter
+                self.search_level(current_level[letter], extended_prefix, words)
+        return words
+
+    def words_with_prefix(self, prefix):
+        collected_words = []
+        current_level = self.root
+        for letter in prefix:
+            if letter not in current_level:
+                return []
+            current_level = current_level[letter]
+        return self.search_level(current_level, prefix, collected_words)
+    
+    def exists(self, word):
+        current = self.root
+        for letter in word:
+            if letter not in current:
+                return False
+            current = current[letter]
+        return self.end_symbol in current
+
+    def add(self, word):
+        current = self.root
+        for letter in word:
+            if letter not in current:
+                current[letter] = {}
+            current = current[letter]
+        current[self.end_symbol] = True
+
     def __init__(self):
         self.root = {}
         self.end_symbol = "*"
-    
-    def add(self, word):
-        current = self.root
-        for c in word:
-            if c not in current:
-                current[c] = {}
-            current = current[c]
-        current[self.end_symbol] = True
 
 
 '''
