@@ -1,18 +1,4 @@
 class Trie:
-    def find_matches(self, document):
-        matches = set()
-        for i in range(len(document)):
-            level = self.root
-            for j in range(i, len(document)):
-                char = document[j]
-                if char not in level:
-                    break
-                level = level[char]
-                if self.end_symbol in level:
-                    substring = document[i:j+1]
-                    matches.add(substring)
-        return matches
-
     def search_level(self, current_level, current_prefix, words):
         if self.end_symbol in current_level:
             words.append(current_prefix)
@@ -38,6 +24,36 @@ class Trie:
                 return False
             current = current[letter]
         return self.end_symbol in current
+
+    def find_matches(self, document):
+        matches = set()
+        for i in range(len(document)):
+            level = self.root
+            for j in range(i, len(document)):
+                char = document[j]
+                if char not in level:
+                    break
+                level = level[char]
+                if self.end_symbol in level:
+                    substring = document[i:j+1]
+                    matches.add(substring)
+        return matches
+
+    
+    def longest_common_prefix(self):
+        current = self.root
+        prefix = ""
+        while True:
+            children = list(current.keys())
+            if self.end_symbol in children:
+                break
+            if len(children) == 1:
+                char = children[0]
+                prefix += char
+                current = current[char]
+            else:
+                break
+        return prefix
 
     def add(self, word):
         current = self.root
