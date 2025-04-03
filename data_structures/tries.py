@@ -1,4 +1,18 @@
 class Trie:
+    def find_matches(self, document):
+        matches = set()
+        for i in range(len(document)):
+            level = self.root
+            for j in range(i, len(document)):
+                char = document[j]
+                if char not in level:
+                    break
+                level = level[char]
+                if self.end_symbol in level:
+                    substring = document[i:j+1]
+                    matches.add(substring)
+        return matches
+
     def search_level(self, current_level, current_prefix, words):
         if self.end_symbol in current_level:
             words.append(current_prefix)
