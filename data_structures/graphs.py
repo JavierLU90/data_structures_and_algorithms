@@ -28,6 +28,11 @@ class Graph:
         '''It should create an empty dictionary called graph as a data member.'''
         self.graph = {}
 
+    def add_node(self, u):
+        '''Checks if node exists. If it doesn't it adds it to the dictionary.'''
+        if u not in self.graph:
+            self.graph[u] = set()
+
     def add_edge(self, u, v):
         '''It takes two vertices as inputs, and adds an edge to the adjacency list (the dictionary)'''
         if u in self.graph.keys():
@@ -40,9 +45,22 @@ class Graph:
             self.graph[v] = set([u])
 
     def edge_exists(self, u, v):
+        '''Checks if edges exist. Returns True or False.'''
         if u in self.graph and v in self.graph:
             return (v in self.graph[u]) and (u in self.graph[v])
         return False
+    
+    def adjacent_nodes(self, node):
+        '''It takes a node (an integer) as input and returns a list of all the adjacent nodes.'''
+        return list(self.graph[node])
+    
+    def unconnected_vertices(self):
+        '''It should return a list of vertices (integers) that have no connections.'''
+        unconnected = []
+        for key in self.graph:
+            if self.graph[key] == set():
+                unconnected.append(key)
+        return unconnected
 
 '''
 GRAPHS
