@@ -1,8 +1,7 @@
 class Graph:
+    ''' OLD CODE
     def __init__(self, num_vertices):
-        '''Create a new data member called graph, it should be an empty list.
-        Fill the graph with n lists, where n is the number of vertices in the graph.
-        Each of these lists should contain n False values.'''
+        #   Create a new data member called graph, it should be an empty list. Fill the graph with n lists, where n is the number of vertices in the graph. Each of these lists should contain n False values.
         self.graph = []
         for i in range(num_vertices):
             row = []
@@ -11,8 +10,7 @@ class Graph:
             self.graph.append(row)
 
     def add_edge(self, u, v):
-        '''It takes two vertices as inputs
-        It adds an edge to the graph by setting the corresponding cells to True.'''
+        #   It takes two vertices as inputs. It adds an edge to the graph by setting the corresponding cells to True.
         self.graph[u][v] = True
         self.graph[v][u] = True
 
@@ -24,7 +22,27 @@ class Graph:
         row1 = self.graph[0]
         if v < 0 or v >= len(row1):
             return False
-        return self.graph[u][v]
+        return self.graph[u][v]'''
+    
+    def __init__(self):
+        '''It should create an empty dictionary called graph as a data member.'''
+        self.graph = {}
+
+    def add_edge(self, u, v):
+        '''It takes two vertices as inputs, and adds an edge to the adjacency list (the dictionary)'''
+        if u in self.graph.keys():
+            self.graph[u].add(v)
+        else:
+            self.graph[u] = set([v])
+        if v in self.graph.keys():
+            self.graph[v].add(u)
+        else:
+            self.graph[v] = set([u])
+
+    def edge_exists(self, u, v):
+        if u in self.graph and v in self.graph:
+            return (v in self.graph[u]) and (u in self.graph[v])
+        return False
 
 '''
 GRAPHS
