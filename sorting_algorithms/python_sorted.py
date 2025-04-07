@@ -7,9 +7,6 @@ class Influencer:
         return f"({self.num_selfies}, {self.num_bio_links})"
 
 
-# dont touch above this line
-
-
 def vanity(influencer):
     return influencer.num_bio_links * 5 + influencer.num_selfies
 
